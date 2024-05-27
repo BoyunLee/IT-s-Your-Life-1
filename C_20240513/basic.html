@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        // let person={
+        //     gid: '000802-411',
+        //     name: 'java',
+        //     age: 20
+        // }
+        // let book={
+        //     id: 'hi1234',
+        //     price: 9000,
+        //     publisher: '삼성출판'
+        // }
+        // console.log(person);
+        // console.log(book);
+
+        // alert(`이름은:${person.name} name:${person['name']}`)
+
+        // let array=[10, 5>4, null, 'hi'];
+
+        // for(var i=1; i<array.lenth; i++){
+        //     console.log(array[i]);
+        // }
+        // for(var k in array){
+        //     console.log(k);
+        //     console.log(array[k]);
+        // }
+
+        let jsonArray=[
+            {id:'blue', passward:'1234', name:'oop1'},
+            {id:'red', passward:'1235', name:'oop2'},
+            {id:'yellow', passward:'1236', name:'oop3'},
+            {id:'cyan', passward:'1237', name:'oop4'},
+        ];
+        for(let i in jsonArray){
+            for(let j in jsonArray[i]){
+                console.log(`${j} : ${jsonArray[i][j]}`);
+            }
+        }
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

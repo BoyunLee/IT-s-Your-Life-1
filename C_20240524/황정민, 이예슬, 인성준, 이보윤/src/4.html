@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>4번</title>
+    <link rel="stylesheet" href="../css/restaurant4.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(function () {
+        //node 실행 시 주소
+        $("#header").load("./src/header.html");
+
+        //라이브 서버 주소
+        // $("#header").load("./header.html");
+      });
+    </script>
+  </head>
+  <body>
+    <div id="app" class="wrap" v-cloak>
+      <div id="header"></div>
+      <div class="member">예슬이의 추천 맛집</div>
+      <div class="content">
+        <!-- 가게 정보 -->
+        <div id="restaurant-info-top" class="card">
+          <img
+            src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMTA1MTJfNTkg%2FMDAxNjIwNzk5NjA1OTc0.-Vxi7SvM34rKoIngH3E2Xg1p6UoJ6cgcwPyQVTW5ygIg.qq5MxIMN4rreD13QcsKog3QN7xTS8KCz3ylRqAFX-0Eg.JPEG.reve8612%2F1620799597035.jpg&type=sc960_832"
+            alt=""
+          />
+          <div>혼다라멘 - 어린이대공원점</div>
+        </div>
+        <!-- 메뉴 -->
+        <div
+          id="restaurant-info-bottom"
+          class="card card-default card-borderless"
+        >
+          <!-- v-for 메뉴들 -->
+          <table id="menus">
+            <tr v-for="(menu, index) in menus" :key="menu.name">
+              <td>{{ menu.name }}</td>
+              <td>{{ menu.price }}</td>
+            </tr>
+          </table>
+        </div>
+        <!-- 리뷰 -->
+        <div id="restaurant-review" class="card card-default card-borderless">
+          <div class="card-body">
+            <div class="row mb-3">
+              <div class="input-group">
+                <input
+                  id="msg"
+                  type="text"
+                  class="form-control"
+                  name="msg"
+                  placeholder="리뷰를 입력해 주세요."
+                  v-model.trim="review"
+                  @keyup.enter="addReview"
+                />
+                <span class="btn btn-dark input-group-addon" @click="addReview"
+                  >등록</span
+                >
+              </div>
+            </div>
+            <div class="col">
+              <ul class="list-group">
+                <li
+                  v-for="reviewItem in reviewList"
+                  :key="reviewItem.id"
+                  class="list-group-item"
+                >
+                  <span class="pointer"> {{reviewItem.review}} </span>
+                  <span
+                    class="float-end badge bg-secondary pointer"
+                    @click.stop="deleteReview(reviewItem.id)"
+                    >삭제</span
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- 지도(카카오맵 API 활용) -->
+        <div
+          id="restaurant-map"
+          class="card card-default card-borderless"
+        ></div>
+      </div>
+    </div>
+    <!-- Vue -->
+    <script>
+      let ts = new Date().getTime();
+      const app = Vue.createApp({
+        name: "App",
+        data() {
+          return {
+            menus: [
+              { name: "혼다라멘 세트", price: "8900원" },
+              { name: "매운 혼다라멘 세트", price: "9500원" },
+              { name: "탄탄멘 세트", price: "9500원" },
+              { name: "마제소바 세트", price: "10500원" },
+            ],
+            review: "",
+            reviewList: [
+              { id: ts, review: "라멘 국물이 맛있어요b" },
+              { id: ts, review: "군만두가 바삭함" },
+              { id: ts, review: "탄탄멘 너무 매워요ㅠㅠ" },
+            ],
+            content: "",
+            map: null,
+            Latitude: 37.548009,
+            Hardness: 127.072579,
+            restName: "혼다라멘 어린이대공원점",
+          };
+        },
+        mounted() {
+          if (window.kakao && window.kakao.maps) {
+            this.loadMap();
+          } else {
+            this.loadScript();
+          }
+        },
+        methods: {
+          addReview() {
+            if (this.review.length >= 2) {
+              this.reviewList.push({
+                id: new Date().getTime(),
+                review: this.review,
+                completed: false,
+              });
+              this.review = "";
+            }
+          },
+          deleteReview(id) {
+            let index = this.reviewList.findIndex((item) => id === item.id);
+            this.reviewList.splice(index, 1);
+          },
+          loadScript() {
+            const script = document.createElement("script");
+            script.src =
+              "//dapi.kakao.com/v2/maps/sdk.js?appkey=8b670cf5a2c5c7b654ea463d04bd854e&autoload=false";
+            script.onload = () => window.kakao.maps.load(this.loadMap);
+
+            document.head.appendChild(script);
+          },
+          loadMap() {
+            const container = document.getElementById("restaurant-map");
+            const options = {
+              center: new kakao.maps.LatLng(this.Latitude, this.Hardness), // 지도의 중심좌표
+              level: 3, // 지도의 확대 레벨
+            };
+
+            this.map = new window.kakao.maps.Map(container, options);
+            this.loadMarker();
+          },
+          loadMarker() {
+            // 마커가 표시될 위치입니다
+            const markerPosition = new kakao.maps.LatLng(
+              this.Latitude,
+              this.Hardness
+            );
+
+            // 마커를 생성합니다
+            const marker = new kakao.maps.Marker({
+              position: markerPosition,
+            });
+
+            // 마커가 지도 위에 표시되도록 설정합니다
+            marker.setMap(this.map);
+
+            // 인포윈도우를 생성합니다
+            const iwPosition = new kakao.maps.LatLng(
+              this.Latitude,
+              this.Hardness
+            ); //인포윈도우 표시 위치입니다
+            const iwContent =
+              '<div class="markInfo" style="padding:5px;">' +
+              this.restName +
+              ' <br><a href="https://map.kakao.com/link/map/' +
+              this.restName +
+              "," +
+              this.Latitude +
+              "," +
+              this.Hardness +
+              '" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/' +
+              this.restName +
+              "," +
+              this.Latitude +
+              "," +
+              this.Hardness +
+              '" style="color:blue" target="_blank">길찾기</a></div>'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+
+            const infoWindow = new kakao.maps.InfoWindow({
+              position: iwPosition,
+              content: iwContent,
+            });
+
+            infoWindow.open(this.map, marker);
+          },
+        },
+      });
+      app.mount("#app");
+    </script>
+  </body>
+</html>

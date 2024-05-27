@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2번</title>
+    <link rel="stylesheet" href="../css/restaurant2.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(function(){
+            //node 실행 시 주소
+            $("#header").load("./src/header.html");
+
+            //라이브 서버 주소
+            // $("#header").load("./header.html");
+
+        });
+    </script>
+    <script src="https://unpkg.com/vue@3"></script> <!-- Added Vue.js CDN -->
+</head>
+<body>
+    <div class="wrap">  
+        <div id="header"></div>
+        <div class="member">
+            인성준의 추천 맛집
+        </div>
+        <div class="content">
+            <div id="restaurant-info-top">
+                <img src="../img/KFC.jpg" alt=""><br />
+                KFC
+            </div>
+            
+            
+            <div id="restaurant-info-bottom">
+                <!-- for문으로 메뉴 바꾸기 -->
+                <table>
+                    <tr>
+                        <td>온가족 모두팩</td>
+                        <td>: 28800원</td>
+                    </tr>
+                    <tr>
+                        <td>KFC 추천팩</td>
+                        <td>: 17900원</td>
+                    </tr>
+                    <tr>
+                        <td>KFC시그니처팩</td>
+                        <td>: 22900원</td>
+                    </tr>
+                    <tr>
+                        <td>버터 비스켓</td>
+                        <td>: 2500원</td>
+                    </tr>
+                </table>
+            </div>
+            
+            
+            <!-- Review Section -->
+            <div id="restaurant-review">
+                <div class="card card-default card-borderless">
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col">
+                                <div class="input-group">
+                                    <input
+                                        id="msg"
+                                        type="text"
+                                        class="form-control"
+                                        name="msg"
+                                        placeholder="리뷰를 입력해 주세요."
+                                        v-model.trim="review"
+                                        @keyup.enter="addReview"
+                                    />
+                                    <span
+                                        class="btn btn-dark input-group-addon"
+                                        @click="addReview"
+                                        >등록</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <ul class="list-group">
+                                <li
+                                    v-for="reviewItem in reviewList"
+                                    :key="reviewItem.id"
+                                    class="list-group-item"
+                                    :class="{ 'list-group-item-success': reviewItem.completed } "
+                                    @click="toggleCompleted(reviewItem.id)"
+                                >
+                                    <span
+                                        class="pointer"
+                                        :class="{ 'review-done': reviewItem.completed }"
+                                    >
+                                        {{reviewItem.review}} {{ reviewItem.completed ? "(완료)" : "" }}
+                                    </span>
+                                    <span
+                                        class="float-end badge bg-secondary pointer"
+                                        @click.stop="deleteReview(reviewItem.id)"
+                                        >삭제</span
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Map Section -->
+            <div id="restaurant-map"></div>
+            <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8b670cf5a2c5c7b654ea463d04bd854e"></script>
+            <script>
+                // 여기가 가게 정보 바꾸는 곳
+                let Latitude = 37.547197497216914;
+                let Hardness = 127.0735913474678;
+                let restName = "어린이 대공원 KFC"
+                
+                var mapContainer = document.getElementById('restaurant-map'), // 지도를 표시할 div 
+                    mapOption = { 
+                        center: new kakao.maps.LatLng(Latitude, Hardness), // 지도의 중심좌표
+                        level: 3 // 지도의 확대 레벨
+                    };
+
+                var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+                // 마커가 표시될 위치입니다 
+                var markerPosition  = new kakao.maps.LatLng(Latitude, Hardness); 
+
+                // 마커를 생성합니다
+                var marker = new kakao.maps.Marker({
+                    position: markerPosition
+                });
+
+                // 마커가 지도 위에 표시되도록 설정합니다
+                marker.setMap(map);
+
+                var iwContent = '<div class="markInfo">'+restName+' <br><a href="https://map.kakao.com/link/map/'+restName+','+Latitude+','+Hardness+'" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/'+restName+','+Latitude+','+Hardness+'" style="color:blue" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+                iwPosition = new kakao.maps.LatLng(Latitude, Hardness); //인포윈도우 표시 위치입니다
+
+                // 인포윈도우를 생성합니다
+                var infowindow = new kakao.maps.InfoWindow({
+                    position : iwPosition, 
+                    content : iwContent 
+                });
+
+                infowindow.open(map, marker); 
+
+                // 아래 코드는 지도 위의 마커를 제거하는 코드입니다
+                // marker.setMap(null);
+            </script>
+        <script type="text/javascript">
+            const app = Vue.createApp({
+                data() {
+                    return {
+                        review: "",
+                        reviewList: [
+                            { id: 1, review: "치킨이 바삭해요", completed: false },
+                            { id: 2, review: "온가족이 맛있게 먹었어요", completed: false },
+                            { id: 3, review: "버터 비스켓이 너무 달아요", completed: false }
+                        ]
+                    };
+                },
+                methods: {
+                    addReview() {
+                        if (this.review.trim() !== "") {
+                            this.reviewList.push({
+                                id: this.reviewList.length + 1,
+                                review: this.review,
+                                completed: false
+                            });
+                            this.review = "";
+                        }
+                    },
+                    toggleCompleted(id) {
+                        const index = this.reviewList.findIndex(item => item.id === id);
+                        this.reviewList[index].completed = !this.reviewList[index].completed;
+                    },
+                    deleteReview(id) {
+                        this.reviewList = this.reviewList.filter(item => item.id !== id);
+                    }
+                }
+            });
+        
+            app.mount('#restaurant-review');
+        </script>

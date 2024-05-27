@@ -1,0 +1,121 @@
+.wrap{
+    background-color: #fcf8e2;
+    width: 1000px;
+    height: 800px;
+    margin: 0 auto;
+}
+
+.member{
+    background-color: #e2d32a;
+    color: white;
+    width: 900px;
+    height: 60px;;
+    margin: 0 auto;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 35px;
+    padding: 5px;
+}
+
+.content{
+    width: 900px;
+    height: 600px;
+    margin: 10px auto 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+    row-gap: 10px;
+    column-gap: 10px;
+}
+
+#restaurant-info-top {
+    background-color: #c6b23e;
+    width: 450px;
+    height: 290px;
+    grid-column: 1/2;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 27px;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+#restaurant-info-top img {
+    width: 230px;
+    height: 230px;
+    margin-bottom: 5px;
+}
+
+#restaurant-info-bottom {
+    background-color: #c6b23e;
+    width: 450px;
+    height: 290px;
+    grid-column: 1/2;
+    grid-column-end: 2;
+    grid-row: 2/3;
+    display: flex;
+    justify-content: center;
+    border-radius: 5px;    
+}
+
+#restaurant-info-bottom table td{
+    list-style: none;
+    color: white;
+    font-size: 20px;
+}
+
+#restaurant-info-bottom table tr td:nth-child(2n+1){
+    text-align: left;
+}
+
+#restaurant-info-bottom table tr td:nth-child(2n){
+    text-align: right;
+}
+
+#restaurant-review {
+    background-color: #c6b23e;
+    width: 100%;
+    height: 290px;
+    grid-column: 2 /3;
+    grid-row: 1/2;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    border-radius: 5px;
+}
+
+#restaurant-review::-webkit-scrollbar{
+    display:none;
+  }
+
+#restaurant-map {
+    background-color: #c6b23e;
+    width: 100%;
+    height: 290px;
+    grid-column: 2 /3;
+    grid-row: 2/3;
+    border-radius: 5px;
+}
+
+.review-done{
+    text-decoration: line-through;
+}
+
+.pointer{
+    cursor: pointer;
+}
+
+.review-box{
+    padding: 10px;
+}
+
+.addbtn {
+    background-color: #fae04c !important;
+    border-color: #fae04c !important;
+    color: black !important;    
+}
+
+.addbtn:hover{
+    background-color: #e0ca48 !important;
+    border-color: #e0ca48 !important;
+}

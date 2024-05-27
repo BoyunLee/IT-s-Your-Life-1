@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var name;
+        var destination;
+
+        var p = new Promise((resolve, reject) => {
+            resolve("first!")
+        });
+
+        p.then((msg) => {
+            name = prompt('너의 이름은?');
+            if (name) {
+                console.log(`${name}`);
+                return name;
+            } else {
+                throw new Error('이름을 입력해주세요.');
+            }
+        })
+        .then((msg) => {
+            destination = prompt('네가 가고 싶은 곳은?');
+            if (destination) {
+                console.log(`${name}은 ${destination}`);
+                return destination;
+            } else {
+                throw new Error('가고싶은 곳을 입력해주세요.');
+            }
+        })
+        .then((msg) => {
+            console.log(`${name}은 ${destination}에 가기를 희망한다.`);
+        })
+        .catch((error) => {
+            console.log("오류 발생 ==> " + error);
+        })
+
+    </script>
+</body>
+
+</html>

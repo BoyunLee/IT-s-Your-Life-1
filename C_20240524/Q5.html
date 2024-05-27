@@ -1,0 +1,79 @@
+<div id="restaurant-review">
+  <div id="app" class="container">
+    <div class="card card-default card-borderless">
+      <div class="card-body">
+        <div class="row mb-3">
+          <div class="col">
+            <div class="input-group">
+              <input
+                id="msg"
+                type="text"
+                class="form-control"
+                name="msg"
+                placeholder="댓글 입력해주세요!"
+                v-model.trim="todo"
+                @keyup.enter="addTodo"
+              />
+              <span class="btn btn-primary input-group-addon" @click="addTodo"
+                >추가</span
+              >
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <ul class="list-group">
+              <li
+                v-for="todoitem in todolist"
+                :key="todoitem.id"
+                class="list-group-item"
+                :class="{ 'list-group-item-success': todoitem.completed }"
+                @click="toggleCompleted(todoitem.id)"
+              >
+                <span class="pointer">{{todoitem.todo}}</span>
+                <span
+                  class="float-end badge bg-secondary pointer"
+                  @click.stop="deleteTodo(todoitem.id)"
+                  >삭제</span
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="https://unpkg.com/vue"></script>
+  <script type="text/javascript">
+    var vm = Vue.createApp({
+      name: "App",
+      data() {
+        return {
+          todo: "",
+          todolist: [],
+        };
+      },
+      methods: {
+        addTodo() {
+          if (this.todo.length >= 2) {
+            this.todolist.push({
+              id: new Date().getTime(),
+              todo: this.todo,
+              completed: false,
+            });
+            this.todo = "";
+          }
+        },
+        deleteTodo(id) {
+          let index = this.todolist.findIndex((item) => id === item.id);
+          this.todolist.splice(index, 1);
+        },
+        toggleCompleted(id) {
+          let index = this.todolist.findIndex((item) => id === item.id);
+          this.todolist[index].completed = !this.todolist[index].completed;
+        },
+      },
+    }).mount("#app");
+  </script>
+</div>

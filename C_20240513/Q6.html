@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function idCheck() {
+            idTag = document.getElementById('userid');
+            idValue = idTag.value;
+
+            result1 = "";
+            if(idValue == 'root' || idValue == 'admin' || idValue == 'apple') {
+                result1 = "이미 사용 중인 ID입니다. 다른 ID를 선택해주세요."
+            } else {
+                result1 = "사용 가능한 ID입니다."
+            }
+            divTag = document.getElementById('result1');
+            divTag.innerHTML = result1;
+        }
+        function numberCheck() {
+            let min = 100;
+            let max = 999;
+            let randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+
+            numberTag = document.getElementById('number')
+            numberValue = numberTag.value
+
+            result2 = "";
+            if(numberValue.slice(0, 3) == '010') {
+                result2 = "인증번호:01"+ randomNumber
+            } else if(numberValue.slice(0, 3) == '011') {
+                result2 = "인증번호:02"+ randomNumber
+            } else {
+                result2 = "인증번호:03"+ randomNumber
+            }
+            resultTag = document.getElementById("result2")
+            resultTag.innerHTML = result2;
+        }
+    </script>
+</head>
+<body>
+    <div style="border: 1px solid black; padding: 20px; width: 400px; margin: 0 auto;">
+        ID 입력 :
+        <br>
+        <br>
+        <input type="text" id="userid">
+        <br>
+        <br>
+        <button onclick="idCheck()" style="background: orange; border: none;">회원가입시 중복 체크</button>
+        <br>
+        <br>
+        <div id="result1"></div>
+    </div>
+    <br>
+    <div style="border: 1px solid black; padding: 20px; width: 400px; margin: 0 auto;">
+        전화번호 입력 :
+        <br>
+        <br>
+        <input type="text" id="number">
+        <br>
+        <br> 
+        <button onclick="numberCheck()" style="background: blue; color: white; border: none;">인증번호 받기</button>
+        <br>
+        <br>
+        <div id="result2"></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+    body{
+            width: 300px;
+            height: 500px;
+            margin: auto;
+            background-image: url('1.jpg');
+            background-size: cover; 
+            background-position: center; 
+        }
+    .a {
+        background: rgb(251, 163, 232);
+        color: rgb(52, 3, 248);
+        font-size: 10px;
+        text-align: center;
+        width: 60px;
+    }
+    .b {
+        background: rgb(255, 255, 255);
+        color: rgb(52, 3, 248);
+        font-size: 10px;
+        text-align: center;
+        width: 100px;
+    }
+    .c {
+        background: rgb(255, 255, 255);
+        color: rgb(248, 3, 19);
+        font-size: 10px;
+        text-align: center;
+    }
+    .image {
+        background: rgb(255, 255, 255);
+        text-align: center;
+    }
+    li{
+        list-style: none;
+        float: left;
+        width: 40px;
+        height: 5px;
+        padding: 10px;
+        border-radius: 50px;
+        text-align: center;
+        font-size: 5px;
+    }
+    li:nth-child(2n){
+        background-color: orange;
+    }
+    li:nth-child(2n+1){
+        background-color: yellow;
+    }
+
+
+    </style>
+</head>
+<body>
+    <ul>
+        <li>회원가입</li>
+        <li>제품정보</li>
+        <li>게시판</li>
+        <li>장바구니</li>
+    </ul>
+<table>
+    <tr>
+        <td class="a">제품번호</td>
+        <td class="b">100</td>
+    </tr>
+    <tr>
+        <td class="a">제품이름</td>
+        <td class="c">100</td>
+    </tr>
+    <tr>
+        <td class="a">제품설명</td>
+        <td class="b">100</td>
+    </tr>
+    <tr>
+        <td class="a">제품가격</td>
+        <td class="b">1000</td>
+    </tr>
+    <tr>
+        <td class="a">제조회사</td>
+        <td class="b">c100</td>
+    </tr>
+    <tr>
+        <td class="a">제품이미지</td>
+        <td class="image"><img src="2.jpg" width="90px" height="90px"></td>
+    </tr>
+</table>
+</body>
+</html>

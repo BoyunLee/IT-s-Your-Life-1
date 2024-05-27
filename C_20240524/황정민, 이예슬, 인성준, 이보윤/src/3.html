@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1번</title>
+    <link rel="stylesheet" href="../css/restaurant3.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(function(){
+            //node 실행 시 주소
+            $("#header").load("./src/header.html");
+
+            //라이브 서버 주소
+            // $("#header").load("./header.html");
+
+        });
+    </script>
+</head>
+<body>
+    <div class="wrap">
+        <div id="header"></div>
+        <div class="member">
+            정현의 추천 맛집
+        </div>
+        <div class="content">
+            <div id="restaurant-info-top">
+                <img src="../img/sejong.jpg" alt=""><br />
+                학생식당
+            </div>
+            
+            
+            <div id="restaurant-info-bottom">
+                <!-- for문으로 메뉴 바꾸기 -->
+                <table>
+                    <tr v-for=" menu in restMenu" :key="menu.no">
+                        <td>{{menu.name}}</td>
+                        <td>&nbsp;&nbsp;{{menu.price}}원</td>
+                    </tr>
+                </table>
+            </div>
+            
+            
+            <!-- todo 리스트 만드는 곳 -->
+            <div id="restaurant-review">
+                <div class="review-box">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <div class="input-group">
+                                <input id="msg" type="text" class="form-control"
+                                    name="msg" placeholder="리뷰 작성" v-model.trim="review"
+                                    @keyup.enter="addReview" />
+                                <span class="btn btn-primary input-group-addon addbtn"
+                                    @click="addReview">등록</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <ul class="list-group">
+                                <li v-for="reviewitem in reviewlist" :key="reviewitem.id"
+                                    class="list-group-item"
+                                    @click="toggleCompleted(reviewitem.id)">
+                                    <span>
+                                        {{reviewitem.review}}</span>
+                                    <span class="float-end badge bg-secondary pointer"
+                                        @click.stop="deleteReview(reviewitem.id)">삭제</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div id="restaurant-map"></div>
+            <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8b670cf5a2c5c7b654ea463d04bd854e"></script>
+            <script>
+                // 여기가 가게 정보 바꾸는 곳
+                let Latitude = 37.5494831;
+                let Hardness = 127.0750716;
+                let restName = "세종대 학생회관"
+                
+                var mapContainer = document.getElementById('restaurant-map'), // 지도를 표시할 div 
+                    mapOption = { 
+                        center: new kakao.maps.LatLng(Latitude, Hardness), // 지도의 중심좌표
+                        level: 3 // 지도의 확대 레벨
+                    };
+
+                var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+                // 마커가 표시될 위치입니다 
+                var markerPosition  = new kakao.maps.LatLng(Latitude, Hardness); 
+
+                // 마커를 생성합니다
+                var marker = new kakao.maps.Marker({
+                    position: markerPosition
+                });
+
+                // 마커가 지도 위에 표시되도록 설정합니다
+                marker.setMap(map);
+
+                var iwContent = '<div style="padding:5px;">'+restName+' <br><a href="https://map.kakao.com/link/map/'+restName+','+Latitude+','+Hardness+'" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/'+restName+','+Latitude+','+Hardness+'" style="color:blue" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+                iwPosition = new kakao.maps.LatLng(Latitude, Hardness); //인포윈도우 표시 위치입니다
+
+                // 인포윈도우를 생성합니다
+                var infowindow = new kakao.maps.InfoWindow({
+                    position : iwPosition, 
+                    content : iwContent 
+                });
+
+                infowindow.open(map, marker); 
+
+                // 아래 코드는 지도 위의 마커를 제거하는 코드입니다
+                // marker.setMap(null);
+            </script>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="https://unpkg.com/vue"></script>
+    <script>
+        let vm = Vue.createApp({
+            name: "App",
+            data(){
+                return {
+                    restMenu:[
+                        {no:1, name: "육회비빔밥", price: "5,500"},
+                        {no:2, name: "소금구이덮밥", price: "4,500"},
+                        {no:3, name: "닭강정 오므라이스", price: "5,000"},
+                        {no:4, name: "제육덮밥", price: "5,000"},
+                        {no:5, name: "대왕돈까스", price: "6,000"},
+                    ]
+                }
+            },
+        }).mount("#restaurant-info-bottom")
+
+        let rm = Vue.createApp({
+            name:"RApp",
+            data(){
+                return{
+                    review:"",
+                    reviewlist:[
+                        {id: 1, review:"가격이 저렴해요"}
+                        ,{id: 2, review:"위치가 가까워요"}
+                    ],
+
+                }
+            },
+            methods:{
+                addReview(){
+                    if(this.review.length >=1){
+                        this.reviewlist.push({id: new Date().getTime(),
+                            review: this.review, completed:false
+                        });
+                        this.review="";                        
+                    }// }else if((this.review.length >=1) && (this.reviewlist.length>=5)){
+                    //     this.reviewlist.shift();
+                    //     this.reviewlist.push({id: new Date().getTime(),
+                    //         review: this.review, completed:false
+                    //     });
+                    //     this.review="";
+                    // }
+                },
+                deleteReview(id){
+                    let index = this.reviewlist.findIndex((item)=> id ===item.id);
+                    this.reviewlist.splice(index,1);
+                },
+                toggleCompleted(id){
+                    let index = this.reviewlist.findIndex((item)=> id ===item.id);
+                    this.reviewlist[index].completed = !this.reviewlist[index].completed;
+                }
+            }
+        }).mount("#restaurant-review")
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* 스마트 폰 */
+        @media screen and (max-width: 767px) {
+            body { background-color: rgb(159, 236, 249); 
+                .S-text {
+                font-size: 18px;
+                text-align: center;
+                padding: 20px;
+                background-color: rgb(0, 255, 21);
+                color: rgb(254, 0, 182);
+                display: block;
+                }
+                .M-text, .L-text { 
+                display: none;
+                }
+            }
+        }
+
+        /* 테블릿 PC */
+        @media screen and (min-width: 768px) and (max-width: 959px) {
+            body { background-color: rgb(159, 236, 249); 
+                .M-text {
+                font-size: 18px;
+                text-align: center;
+                padding: 20px;
+                background-color: rgb(5, 5, 5);
+                color: rgb(254, 0, 182);
+                display: block;
+                }
+                .S-text, .L-text { 
+                display: none;
+                }
+            }
+        }
+
+        /* 데스크탑 PC */
+        @media screen and (min-width: 960px) {
+            body { background-color: rgb(159, 236, 249); 
+                .L-text {
+                font-size: 18px;
+                text-align: center;
+                padding: 20px;
+                background-color: yellow;
+                color: rgb(254, 0, 182);
+                display: block;
+                }
+                .S-text, .M-text { 
+                display: none;
+                }
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="S-text"><h3>난 그린핑크</h3></div>
+    <div class="M-text"><h3>난 블랙핑크</h3></div>
+    <div class="L-text"><h3>난 엘로우핑크</h3></div>
+    <br>
+    <img src="image.jpg" width="120" height="200" alt="" style="display: block; margin: 0 auto;">
+</body>
+</html>

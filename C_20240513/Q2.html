@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        function idCheck() {
+            idTag = document.getElementById('id');
+            idValue = idTag.value;
+            alert('id is >> ' + idValue);
+            alert('id 길이 >> ' + idValue.length);
+
+            result = "";
+            if(idValue.length >= 5) {
+                result = "5글자 이상입니다. 유효합니다."
+            } else {
+                result = "5글자 미만입니다. 다시 입력해주세요."
+            }
+            divTag = document.getElementById('result');
+            divTag.innerHTML = result;
+        }
+        function pwCheck() {
+            pw1Tag = document.getElementById('pw1')
+            pw2Tag = document.getElementById('pw2')
+            pw1Value = pw1Tag.value
+            pw2Value = pw2Tag.value
+            result = "비밀번호 불일치"
+            if(pw1Value == pw2Value) {
+                result = "비밀번호 일치"
+            }
+            resultTag = document.getElementById("result")
+            resultTag.innerHTML = result;
+            pw1Tag.value = ""
+            pw2Tag.value = ""
+        }
+    </script>
+</head>
+<body>
+    아이디 : <input name="id" id="id" value="test"> <button onclick="idCheck()" id="b1"
+    style="color: blue; background: pink; width: 150px; height: 25px;">아이디 글자수 확인</button>
+    <hr>
+    비밀번호 : <input name="pw1" id="pw1"><br>
+    비밀번호 확인 : <input name="pw2" id="pw2"> <button onclick="pwCheck()" id="b2"
+    style="color: white; background: lime; width: 150px; height: 25px;">비밀번호 일치 확인</button>
+    <hr>
+    <div id="result" style="color: red; background: yellow; width: 600px; height: 50px; font-size: 30px;"></div>
+</body>
+</html>

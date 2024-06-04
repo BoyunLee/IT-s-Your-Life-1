@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "name": "민지",
+    "role": "보컬 및 랩",
+    "photo": "https://search.pstatic.net/common?type=b&size=3000&quality=100&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2FprofileImg%2F008ac9a5-795e-4060-849d-4860af085cfe.jpg",
+    "desc": "가수",
+    "insta": "https://www.instagram.com/newjeans_official?igsh=MThjZXI2bTd1MHkzYQ==",
+    "facebook": "",
+    "youtube": ""
+  },
+  {
+    "id": 2,
+    "name": "하니",
+    "role": "보컬",
+    "photo": "https://search.pstatic.net/common?type=b&size=3000&quality=100&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2FprofileImg%2F602f0e75-f047-40db-b42a-20e95c265966.jpg",
+    "desc": "가수",
+    "insta": "https://www.instagram.com/newjeans_official?igsh=MThjZXI2bTd1MHkzYQ==",
+    "facebook": "",
+    "youtube": ""
+  },
+  {
+    "id": 3,
+    "name": "다니엘",
+    "role": "보컬",
+    "photo": "https://search.pstatic.net/common?type=b&size=3000&quality=100&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2FprofileImg%2F9dbaa974-e2a0-41e8-9364-38f7f8d0791e.jpg",
+    "desc": "가수",
+    "insta": "https://www.instagram.com/newjeans_official?igsh=MThjZXI2bTd1MHkzYQ==",
+    "facebook": "",
+    "youtube": ""
+  },
+  {
+    "id": 4,
+    "name": "해린",
+    "role": "보컬",
+    "photo": "https://search.pstatic.net/common?type=b&size=3000&quality=100&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2FprofileImg%2F3bbd678a-8cea-45fb-86f0-92df62bf6006.jpg",
+    "desc": "가수",
+    "insta": "https://www.instagram.com/newjeans_official?igsh=MThjZXI2bTd1MHkzYQ==",
+    "facebook": "",
+    "youtube": ""
+  },
+  {
+    "id": 5,
+    "name": "혜인",
+    "role": "보컬 및 랩",
+    "photo": "https://search.pstatic.net/common?type=b&size=3000&quality=100&direct=true&src=http%3A%2F%2Fsstatic.naver.net%2Fpeople%2FprofileImg%2F3c425d60-69b0-4f15-abd0-39d1da383435.jpg",
+    "desc": "가수",
+    "insta": "https://www.instagram.com/newjeans_official?igsh=MThjZXI2bTd1MHkzYQ==",
+    "facebook": "",
+    "youtube": ""
+  }
+]
